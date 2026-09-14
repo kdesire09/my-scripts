@@ -2,7 +2,7 @@
 set -e
 
 # Default values
-NAMESPACE="mobisoft2024"
+NAMESPACE=""
 VERSION=""
 IMAGE_NAME=""
 BUILD_ARGS=()
@@ -15,14 +15,14 @@ show_usage() {
     echo "Options:"
     echo "  -n, --name <name>        Image name (Required)"
     echo "  -v, --version <tag>      Image version tag (Required)"
-    echo "  --ns, --namespace <ns>   Namespace (Default: mobisoft2024)"
+    echo "  --ns, --namespace <ns>   Namespace (Required)"
     echo "  --arg <key=value>        Build argument (Can be used multiple times)"
     echo "  --no-cache               Disable Docker build cache (Default: false)"
     echo "  -h, --help               Show this help message"
     echo ""
     echo "Example:"
-    echo "  docker-push --name myapp --version v1.0.0 --arg ENV=prod --ns mobisoft2024"
-    echo "  docker-push --name myapp --version v1.0.0 --no-cache"
+    echo "  docker-push --name myapp --version v1.0.0 --ns mynamespace --arg ENV=prod"
+    echo "  docker-push --name myapp --version v1.0.0 --ns mynamespace --no-cache"
 }
 
 # Parse arguments
@@ -61,8 +61,8 @@ while [[ $# -gt 0 ]]; do
 done
 
 # Validate required arguments
-if [ -z "$IMAGE_NAME" ] || [ -z "$VERSION" ]; then
-    echo "❌ Error: Image name and version are required."
+if [ -z "$IMAGE_NAME" ] || [ -z "$VERSION" ] || [ -z "$NAMESPACE" ]; then
+    echo "❌ Error: Image name, version, and namespace are required."
     show_usage
     exit 1
 fi

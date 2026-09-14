@@ -27,7 +27,7 @@ Ce script Bash permet d'automatiser le processus de construction (build), de mar
 ### 🛠️ Utilisation
 
 ```bash
-./docker-build-tag-push.sh --name <nom_image> --version <version> [OPTIONS]
+./docker-build-tag-push.sh --name <nom_image> --version <version> --namespace <namespace> [OPTIONS]
 ```
 
 #### Options disponibles
@@ -36,7 +36,7 @@ Ce script Bash permet d'automatiser le processus de construction (build), de mar
 | :--- | :--- | :--- | :--- |
 | `--name` | `-n` | Nom de l'image Docker à construire. | **Oui** |
 | `--version` | `-v` | Tag de la version à publier (ex: `v1.0.0`). | **Oui** |
-| `--namespace`| `--ns` | Espace de noms du registre. (Défaut : `mobisoft2024`) | Non |
+| `--namespace`| `--ns` | Espace de noms du registre (ex: organisation ou nom d'utilisateur). | **Oui** |
 | `--arg` | | Argument de build (`--build-arg`) au format `Clé=Valeur`. | Non |
 | `--no-cache` | | Désactive l'utilisation du cache Docker lors du build. | Non |
 | `--help` | `-h` | Affiche l'aide complète. | Non |
@@ -45,9 +45,9 @@ Ce script Bash permet d'automatiser le processus de construction (build), de mar
 
 **Déploiement standard :**
 ```bash
-./docker-build-tag-push.sh -n mon-application -v v1.0.0
+./docker-build-tag-push.sh -n mon-application -v v1.0.0 --ns mon-organisation
 ```
-*(Génère et pousse : `mobisoft2024/mon-application:v1.0.0`)*
+*(Génère et pousse : `mon-organisation/mon-application:v1.0.0`)*
 
 **Déploiement avec cache désactivé et arguments personnalisés :**
 ```bash
